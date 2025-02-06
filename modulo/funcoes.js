@@ -73,7 +73,7 @@ const listarDadosContatos = function(valor){
     })
    return status ? retorno : status
 }
-//console.log(listarDadosContatos('1198787567'));
+//console.log(listarDadosContatos('11987876567'));
 
 
 //FUNÇÂO 04
@@ -148,3 +148,11 @@ const filtraMensagensPelaPalavra = function(nUsuario, nContato, palavra){
    return status ? retorno : status
 }
 //console.log(filtraMensagensPelaPalavra('11987876567', 'Juia Smith', 'bem'));
+
+module.exports = {
+    listarDadosPessoais, 
+    listarDadosPerfil, 
+    listarDadosContatos, 
+    listaConversasUsuario, 
+    listaMensagensContato, 
+    filtraMensagensPelaPalavra}
