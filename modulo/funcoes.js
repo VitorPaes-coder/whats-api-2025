@@ -12,25 +12,20 @@ var listaContatos = arquivoContatos.contatos['whats-users']
 
 //FUNÇÂO 01
 const listarDadosPessoais = function(valor){
-    let numeroCelular = Number(valor)
+    let numeroCelular = valor
     let retorno = {numeroCelular: numeroCelular, id: '', nome: '', dataInicio: '', dataFim: ''}
     
     listaContatos.forEach(function(item){
         if(item.number == numeroCelular){
-            retorno.id = (item.id)
-            retorno.nome = (item.account)
-            retorno.dataInicio = (item['created-since'].start)
-            retorno.dataFim = (item['created-since'].end)
+            retorno.id = item.id
+            retorno.nome = item.account
+            retorno.dataInicio = item['created-since'].start
+            retorno.dataFim = item['created-since'].end
         }
     })
-
-    if(retorno.id.length > 0){
-        return retorno
-    }else{
-        return false
-    }
+    return retorno
 }
-//console.log(listarDadosPessoais('11987876567'));
+//console.log(listarDadosPessoais('1194457796'));
 
 
 //FUNÇÂO 02

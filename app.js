@@ -27,114 +27,93 @@ app.use((request,response, next)=>{
 
 const whatsapp = require('./modulo/funcoes.js')
 
-//Listar todos os dados pessoais por usuário (Apenas dados pessoais que não podem ser editados)
-app.get('/v1/whatsapp/dados/usuario/imutavel/', cors(), async function(request, response){
-    let numero = request.query.nu
+// Endopoint 01
+app.get('/v1/whatsapp/dados-pessoais/:numero', cors(), async function(request, response) {
+    let numero = request.params.numero
     let dados = whatsapp.listarDadosPessoais(numero)
 
-    if(dados){
+    if (dados) {
         response.status(200)
         response.json(dados)
-    }else{
+    } else {
         response.status(404)
-        response.json({'status': 404, 'message': "Usuário não encontrado."})	
+        response.json({ 'status': 404, 'message': "Usuário não encontrado." })
     }
 })
 
+// Endopoint 02
+app.get('/v1/whatsapp/dados-perfil/:numero', cors(), async function(request, response) {
+    let numero = request.params.numero
+    let dados = whatsapp.listarDadosPerfil(numero)
 
-app.get('/v1/whatsapp/dados-usuario', cors(), async function(request, response){
-    let listaCursos = alunosCursos.getListaDeCursos()
-
-    if(listaCursos){
-        response.status(200) //sucess
-        response.json(listaCursos)
-    }else{
-        response.status(404) // not found
-        response.json({'status': 404, 'message':  'Não foi possível encontrar nenhum item de retorno.'})
-    }
-})
-
-//Recupera uma lista de todos os alunos matriculados na escola.
-app.get('/v1/lion-school/lista-alunos', cors(), async function(request, response){
-    let listaAlunos = alunosCursos.getListaAlunos()
-
-    if(listaAlunos){
-        response.status(200) //sucess
-        response.json(listaAlunos)
-    }else{
-        response.status(404) // not found
-        response.json({'status': 404, 'message':  'Não foi possível encontrar nenhum item de retorno.'})
-    }
-})
-
-
-//Recupera uma lista de todos os alunos matriculados no curso especificado. DS ou REDES 
-app.get('/v1/lion-school/alunos-matriculados/:curso', cors(), async function(request, response){
-    let dados = request.params.curso
-
-    let alunosDoCurso = alunosCursos.alunoCurso(dados)
-
-    if(alunosDoCurso){
+    if (dados) {
         response.status(200)
-        response.json(alunosDoCurso)
-    }else{
+        response.json(dados)
+    } else {
         response.status(404)
-        response.json({'status': 404, 'message': 'Nenhum aluno foi localizado.'})
+        response.json({ 'status': 404, 'message': "Usuário não encontrado." })
     }
 })
 
-//Recupera uma lista de todos os alunos com o status especificado. Finalizado ou Cursando
-// app.get('/v1/lion-school/alunos/filtro', cors(), async function(request, response){
-//     let dados = request.query.status
+// Endopoint 03
+app.get('/v1/whatsapp/dados-contatos/:numero', cors(), async function(request, response) {
+    let numero = request.params.numero
+    let dados = whatsapp.listarDadosContatos(numero)
 
-//     let alunosDoCurso = alunosCursos.alunoStatus(dados)
-
-//     if(alunosDoCurso){
-//         response.status(200)
-//         response.json(alunosDoCurso)
-//     }else{
-//         response.status(404)
-//         response.json({'status': 404, 'message': 'Nenhum aluno foi localizado.'})
-//     }
-// })
-
-app.get('/v1/lion-school/alunos/filtro', cors(), async function(request, response){
-    let statusAluno = request.query.sta
-    let curso = request.query.nc
-    let statusDisciplinas = request.query.std
-    let anoConclusao = request.query.adc
-    
-    let alunosDoCurso = alunosCursos.filtroLionSchool(statusAluno, curso, statusDisciplinas, anoConclusao)
-    
-    // console.log(alunosDoCurso);
-    // console.log(statusAluno);
-    // console.log(curso);
-    // console.log(statusDisciplinas);
-    // console.log(anoConclusao);
-
-    if(alunosDoCurso){
+    if (dados) {
         response.status(200)
-        response.json(alunosDoCurso)
-    }else{
+        response.json(dados)
+    } else {
         response.status(404)
-        response.json({'status': 404, 'message': 'Nenhum aluno foi localizado.'})
+        response.json({ 'status': 404, 'message': "Usuário não encontrado." })
     }
 })
 
-// app.get('/v1/lion-school/alunos/filtro', cors(), async function(request, response){
-//     let dados = request.query.curso
+// Endopoint 04
+app.get('/v1/whatsapp/conversas-usuario/:numero', cors(), async function(request, response) {
+    let numero = request.params.numero
+    let dados = whatsapp.listaConversasUsuario(numero)
 
-//     let alunosDoCurso = alunosCursos.alunoCurso(dados)
+    if (dados) {
+        response.status(200)
+        response.json(dados)
+    } else {
+        response.status(404)
+        response.json({ 'status': 404, 'message': "Usuário não encontrado." })
+    }
+})
 
-//     if(alunosDoCurso){
-//         response.status(200)
-//         response.json(alunosDoCurso)
-//     }else{
-//         response.status(404)
-//         response.json({'status': 404, 'message': 'Nenhum aluno foi localizado.'})
-//     }
-// })
+// Endopoint 05
+app.get('/v1/whatsapp/mensagens-contato', cors(), async function(request, response) {
+    let numeroUsuario = request.query.numeroUsuario
+    let nomeContato = request.query.nomeContato
+    let dados = whatsapp.listaMensagensContato(numeroUsuario, nomeContato)
 
-app.listen('8080', function(){
+    if (dados) {
+        response.status(200)
+        response.json(dados)
+    } else {
+        response.status(404)
+        response.json({ 'status': 404, 'message': "Contato não encontrado." })
+    }
+})
+
+// Endopoint 06
+app.get('/v1/whatsapp/filtra-mensagens', cors(), async function(request, response) {
+    let numeroUsuario = request.query.numeroUsuario
+    let nomeContato = request.query.nomeContato
+    let palavra = request.query.palavra
+    let dados = whatsapp.filtraMensagensPelaPalavra(numeroUsuario, nomeContato, palavra)
+
+    if (dados) {
+        response.status(200)
+        response.json(dados)
+    } else {
+        response.status(404)
+        response.json({ 'status': 404, 'message': "Nenhuma mensagem encontrada." })
+    }
+})
+
+app.listen('8080', function() {
     console.log('API aguardando requisições...');
 })
