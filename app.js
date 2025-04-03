@@ -70,8 +70,8 @@ app.get('/v1/whatsapp/dados-contatos/:numero', cors(), async function(request, r
 })
 
 // Endopoint 04
-app.get('/v1/whatsapp/conversas-usuario/:numero', cors(), async function(request, response) {
-    let numero = request.params.numero
+app.get('/v1/whatsapp/conversas-usuario', cors(), async function(request, response) {
+    let numero = request.query.numero
     let dados = whatsapp.listaConversasUsuario(numero)
 
     if (dados) {
