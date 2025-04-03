@@ -28,8 +28,8 @@ app.use((request,response, next)=>{
 const whatsapp = require('./modulo/funcoes.js')
 
 // Endopoint 01
-app.get('/v1/whatsapp/dados-pessoais/:numero', cors(), async function(request, response) {
-    let numero = request.params.numero
+app.get('/v1/whatsapp/dados-pessoais', cors(), async function(request, response) {
+    let numero = request.query.numero
     let dados = whatsapp.listarDadosPessoais(numero)
 
     if (dados) {
