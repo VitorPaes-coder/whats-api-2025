@@ -56,8 +56,8 @@ app.get('/v1/whatsapp/dados-perfil/:numero', cors(), async function(request, res
 })
 
 // Endopoint 03
-app.get('/v1/whatsapp/dados-contatos/:numero', cors(), async function(request, response) {
-    let numero = request.params.numero
+app.get('/v1/whatsapp/dados-contatos/', cors(), async function(request, response) {
+    let numero = request.query.numero
     let dados = whatsapp.listarDadosContatos(numero)
 
     if (dados) {
